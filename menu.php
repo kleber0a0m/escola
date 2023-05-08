@@ -17,7 +17,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/escola/alunos/cadastrar_aluno.php">
                         <img src="/escola/assets/imagens/adicionar.png" width="30" height="30" class="d-inline-block align-top me-2" alt="">
                         Cadastrar Aluno
                     </a>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/escola/disciplinas/cadastrar_disciplina.php">
                         <img src="/escola/assets/imagens/adicionar.png" width="30" height="30" class="d-inline-block align-top me-2" alt="">
                         Cadastrar Disciplina
                     </a>
@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/escola/turmas/cadastrar_turma.php">
                         <img src="/escola/assets/imagens/adicionar.png" width="30" height="30" class="d-inline-block align-top me-2" alt="">
                         Cadastrar Turma
                     </a>
