@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th class="text-center">Id</th>
+                        <th class="text-center">Matrícula</th>
                         <th class="text-center">Nome</th>
                         <th class="text-center" data-orderable="false">Atualizar</th>
                         <th class="text-center" data-orderable="false">Excluir</th>

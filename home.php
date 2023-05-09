@@ -17,7 +17,7 @@ require_once('valida_session.php');
     ?>
     <div class="container d-flex align-items-center vh-100">
         <div class="text-center my-auto mx-auto">
-            <h5 class="h5 text-center font-weight-bold">Bem vindo ao sistema de gerenciamento escolar.</h5>
+            <h5 class="h5 text-center font-weight-bold">Bem-vindo ao sistema de gerenciamento escolar.</h5>
             <h5 class="h5 text-center">Utilize o menu superior para navegar.</h5>
         </div>
     </div>  

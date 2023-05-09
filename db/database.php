@@ -11,6 +11,8 @@ function verificarLogin($usuario, $senha){
     return $retorno;
 }
 
+// Aluno
+
 function cadastrarAluno($nome){
     $conexao = conecta_bd();
     $query = $conexao->prepare("INSERT INTO alunos (nome) VALUES ('$nome')");
@@ -39,7 +41,6 @@ function deletarAluno($id){
     $retorno = $query->fetch(PDO::FETCH_ASSOC);
     return $retorno;
 }
-
 function editarAluno($id,$nome){
     $conexao = conecta_bd();
     $query = $conexao->prepare("UPDATE alunos SET nome='$nome' WHERE  id=$id;");
@@ -47,6 +48,8 @@ function editarAluno($id,$nome){
     $retorno = $query->fetch(PDO::FETCH_ASSOC);
     return $retorno;
 }
+
+// Disciplina
 
 function cadastrarDisciplina($nome){
     $conexao = conecta_bd();
@@ -62,6 +65,13 @@ function listarDisciplinas(){
     $lista = $query->fetchAll(PDO::FETCH_ASSOC);
     return $lista;
 }
+function listarDisciplinaPorId($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("select * FROM disciplinas WHERE ID='$id'");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
 function deletarDisciplina($id){
     $conexao = conecta_bd();
     $query = $conexao->prepare("DELETE FROM disciplinas WHERE  id=$id;");
@@ -69,6 +79,15 @@ function deletarDisciplina($id){
     $retorno = $query->fetch(PDO::FETCH_ASSOC);
     return $retorno;
 }
+function editarDisciplina($id,$nome){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("UPDATE disciplinas SET nome='$nome' WHERE  id=$id;");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
+// Turma
 
 function cadastrarTurma($nome){
     $conexao = conecta_bd();
@@ -84,9 +103,23 @@ function listarTurmas(){
     $lista = $query->fetchAll(PDO::FETCH_ASSOC);
     return $lista;
 }
+function listarTurmaPorId($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("select * FROM turmas WHERE ID='$id'");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
 function deletarTurma($id){
     $conexao = conecta_bd();
     $query = $conexao->prepare("DELETE FROM turmas WHERE  id=$id;");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+function editarTurma($id,$nome){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("UPDATE turmas SET nome='$nome' WHERE  id=$id;");
     $query->execute();
     $retorno = $query->fetch(PDO::FETCH_ASSOC);
     return $retorno;
