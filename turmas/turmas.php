@@ -38,12 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         <th class="text-center">Nome</th>
                         <th class="text-center" data-orderable="false">Atualizar</th>
                         <th class="text-center" data-orderable="false">Excluir</th>
+                        <th class="text-center" data-orderable="false">Ver alunos</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
                     $turmas = listarTurmas();
-                    foreach($turmas as $turma): 
+                    foreach($turmas as $turma):
                         ?>
                         <tr>
                             <td class="text-center"><?= $turma['id'] ?></td>
@@ -53,6 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             </td>
                             <td class="text-center">
                                 <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#excluir-<?=$turma['id'];?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">&nbsp;</i>Excluir</a>
+                            </td>
+                            <td class="text-center">
+                                <a title="Ver alunos" href="ver_alunos_turma.php?id=<?=$turma['id']; ?>&nome_turma=<?=$turma['nome'];?>" class="btn btn-sm btn-secondary"><i class="fas fa-edit">&nbsp;</i>Ver alunos</a>
                             </td>
                         </tr>
                         <div class="modal fade" id="excluir-<?=$turma['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">

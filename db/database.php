@@ -92,4 +92,12 @@ function deletarTurma($id){
     return $retorno;
 }
 
+function verAlunosTurma($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("SELECT alunos.id AS 'id_aluno', alunos.nome,turmas.id AS 'id_turma', turmas.nome AS 'nome_turma' FROM alunos,turmas WHERE alunos.id_turma = turmas.id AND turmas.id = $id");
+    $query->execute();
+    $lista = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $lista;
+}
+
 ?>
