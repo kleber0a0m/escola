@@ -27,6 +27,14 @@ function listarAlunos(){
     $lista = $query->fetchAll(PDO::FETCH_ASSOC);
     return $lista;
 }
+
+function listarAlunosQuenNaoEstaoNaTurma($turma){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("select * FROM alunos WHERE ISNULL(alunos.id_turma)");
+    $query->execute();
+    $lista = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $lista;
+}
 function listarAlunoPorId($id){
     $conexao = conecta_bd();
     $query = $conexao->prepare("select * FROM alunos WHERE ID='$id'");
@@ -117,6 +125,13 @@ function deletarTurma($id){
     $retorno = $query->fetch(PDO::FETCH_ASSOC);
     return $retorno;
 }
+function removerAlunoTurma($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("UPDATE alunos SET id_turma=NULL WHERE id=$id;");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
 function editarTurma($id,$nome){
     $conexao = conecta_bd();
     $query = $conexao->prepare("UPDATE turmas SET nome='$nome' WHERE  id=$id;");
@@ -131,6 +146,16 @@ function verAlunosTurma($id){
     $query->execute();
     $lista = $query->fetchAll(PDO::FETCH_ASSOC);
     return $lista;
+}
+
+function adicionarAlunoTurma($id_aluno,$id_turma){
+    error_log("klebner");
+    error_log("UPDATE alunos SET id_turma=$id_turma WHERE id=$id_aluno");
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("UPDATE alunos SET id_turma=$id_turma WHERE id=$id_aluno");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
 }
 
 ?>

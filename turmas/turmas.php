@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#excluir-<?=$turma['id'];?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">&nbsp;</i>Excluir</a>
                             </td>
                             <td class="text-center">
-                                <a title="Ver alunos" href="ver_alunos_turma.php?id=<?=$turma['id']; ?>&nome_turma=<?=$turma['nome'];?>" class="btn btn-sm btn-secondary"><i class="fas fa-edit">&nbsp;</i>Ver alunos</a>
+                                <a title="Ver alunos" href="ver_alunos_turma.php?acao=ver_alunos&id_turma=<?=$turma['id']; ?>&nome_turma=<?=$turma['nome'];?>" class="btn btn-sm btn-secondary"><i class="fas fa-edit">&nbsp;</i>Ver alunos</a>
                             </td>
                         </tr>
                         <div class="modal fade" id="excluir-<?=$turma['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">

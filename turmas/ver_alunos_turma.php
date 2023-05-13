@@ -2,10 +2,28 @@
 require_once('../valida_session.php');
 require_once('../db/database.php');
 
-if (isset($_GET['id'])) {
-    $idTurma = $_GET['id'];
-    $nomeTurma = $_GET['nome_turma'];
-    $alunos = verAlunosTurma($idTurma);
+if (isset($_GET['acao'])) {
+    if($_GET['acao'] == 'ver_alunos') {
+        $idTurma = $_GET['id_turma'];
+        $nomeTurma = $_GET['nome_turma'];
+        $alunos = verAlunosTurma($idTurma);
+    }
+
+    if($_GET['acao'] == 'adicionar_aluno') {
+        $idTurma = $_GET['id_turma'];
+        $nomeTurma = $_GET['nome_turma'];
+        $idAluno = $_GET['id_aluno'];
+        adicionarAlunoTurma($idAluno,$idTurma);
+        $alunos = verAlunosTurma($idTurma);
+    }
+
+    if($_GET['acao'] == 'remover_aluno_turma') {
+        $idTurma = $_GET['id_turma'];
+        $nomeTurma = $_GET['nome_turma'];
+        $idAluno = $_GET['id_aluno'];
+        removerAlunoTurma($idAluno);
+        $alunos = verAlunosTurma($idTurma);
+    }
 }
 ?>
 
@@ -43,7 +61,7 @@ if (isset($_GET['id'])) {
                             <td class="text-center"><?= $aluno['id_aluno'] ?></td>
                             <td class="text-center"><?= $aluno['nome'] ?></td>
                             <td class="text-center">
-                                <a href="javascript(void)" data-toggle="modal" data-target="#remover_aluno_turma-<?=$aluno['id_aluno'];?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">&nbsp;</i>Remover aluno da turma</a>
+                                <a href="javascript(void)" data-toggle="modal" data-target="#remover_aluno_turma-<?=$aluno['id_aluno'];?>" class="btn btn-sm btn-danger">Remover aluno da turma</a>
                             </td>
                         </tr>
                         <div class="modal fade" id="remover_aluno_turma-<?=$aluno['id_aluno'];?>" tabindex="-1" role="dialog" aria-labelledby="removerAlunoModalLabel" aria-hidden="true" data-backdrop="static">
@@ -54,8 +72,8 @@ if (isset($_GET['id'])) {
                                     </div>
                                     <div class="modal-body">Deseja realmente remover o aluno <?=$aluno['nome'];?> da turma <?=$nomeTurma;?>?</div>
                                     <div class="modal-footer">
-                                        <a href="turmas.php?id=<?=$aluno['id_aluno'];?>"><button class="btn btn-primary btn-user" type="button">Sim</button></a>
-                                        <a href="turmas.php"><button class="btn btn-danger btn-user" type="button">Não</button></a>
+                                        <a href="ver_alunos_turma.php?acao=remover_aluno_turma&id_turma=<?= $idTurma ?>&nome_turma=<?=$nomeTurma;?>&id_aluno=<?=$aluno['id_aluno'];?>"><button class="btn btn-primary btn-user" type="button">Sim</button></a>
+                                        <button class="btn btn-danger btn-user" type="button" data-dismiss="modal">Não</button>
                                     </div>
                                 </div>
                             </div>
@@ -72,30 +90,32 @@ if (isset($_GET['id'])) {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="adicionarAlunoModalLabel">Adicionar aluno na turma <?= $nomeTurma ?></h5>
+                            <h5 class="modal-title" id="adicionarAlunoModalLabel">Adicionar aluno existente na turma <?= $nomeTurma ?></h5>
                         </div>
-                        <div class="modal-body">
-                            <h6>Selecione um aluno</h6>
-                            <select class="form-select" name="aluno">
-                                <option value="-1" disabled selected>Selecione um aluno</option>
-                                <?php
-                                $lista = listarAlunos();
-
-                                foreach ($lista as $linha) {
-                                    $idAluno = $linha['id'];
-                                    $nome = $linha['nome'];
-                                    $opcao = "<option value=\"$idAluno\">$nome</option>";
-                                    echo $opcao;
-                                }
-                                ?>
-                            </select>
+                        <form action="ver_alunos_turma.php" method="get">
+                            <input type="hidden" name="acao" value="adicionar_aluno">
+                            <input type="hidden" name="id_turma" value="<?= $idTurma ?>">
+                            <input type="hidden" name="nome_turma" value="<?= $nomeTurma ?>">
+                            <div class="modal-body">
+                            <h6>Selecione um aluno existente ou <a href="/escola/alunos/cadastrar_aluno.php">adicione um novo</a></h6>
+                                <select class="form-select" name="id_aluno">
+                                    <option value="-1" disabled selected>Selecione um aluno</option>
+                                    <?php
+                                    $lista = listarAlunosQuenNaoEstaoNaTurma($idTurma);
+                                    foreach ($lista as $linha) {
+                                        $idAluno = $linha['id'];
+                                        $nome = $linha['nome'];
+                                        $opcao = "<option value=\"$idAluno\">$nome</option>";
+                                        echo $opcao;
+                                    }
+                                    ?>
+                                </select>
                         </div>
-
-
                         <div class="modal-footer">
-                            <a href="turmas.php"><button class="btn btn-secondary" type="button">Voltar</button></a>
-                            <a href="turmas.php?id=<?=$aluno['id_aluno'];?>"><button class="btn btn-primary btn-user" type="button">Adicionar Aluno</button></a>
+                            <button class="btn btn-danger btn-user" type="button" data-dismiss="modal">Voltar</button>
+                            <button class="btn btn-primary btn-user" type="submit">Adicionar Aluno</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
