@@ -43,17 +43,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <tbody>
                     <?php 
                     $disciplinas = listarDisciplinas();
-                    foreach($disciplinas as $disciplina): 
+                    foreach($disciplinas as $disciplina):
                         ?>
                         <tr>
                             <td class="text-center"><?= $disciplina['id'] ?></td>
                             <td class="text-center"><?= $disciplina['nome'] ?></td>
                             <td class="text-center">
-                                <a title="Atualizar" href="editar_disciplina.php?id=<?=$disciplina['id']; ?>" class="btn btn-sm btn-success"><i class="fas fa-edit">&nbsp;</i>Atualizar</a>
+                                <a title="Atualizar" href="editar_disciplina.php?id=<?=$disciplina; ?>" class="btn btn-sm btn-success"><i class="fas fa-edit">&nbsp;</i>Atualizar</a>
                             </td>
                             <td class="text-center">
-                                <a title="Excluir" href="javascript(void)" data-toggle="modal" data-target="#excluir-<?=$disciplina['id'];?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">&nbsp;</i>Excluir</a>
-                            </td> 
+                                <?php
+                                // Obter a lista de disciplinas do banco de dados
+                                $disciplinas = listarDisciplinas();
+                                // Verificar se a disciplina está relacionada a alguma turma
+                                $relacionada = verificarDisciplinaRelacionada( $disciplina['id']);
+                                error_log($relacionada);
+                                // Definir o atributo "disabled" do botão de exclusão
+                                $disabled = $relacionada ? 'disabled title="Não é possível excluir essa disciplina, ela está relacionada a uma turma."' : '';
+                                ?>
+                                <div <?=$disabled;?>>
+                                    <button  href="javascript:void(0)" <?=$disabled;?> data-toggle="modal" data-target="#excluir-<?=$disciplina['id'];?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt">&nbsp;</i>Excluir</button>
+                                </div>
+                            </td>
                         </tr>
 
                         <div class="modal fade" id="excluir-<?=$disciplina['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">

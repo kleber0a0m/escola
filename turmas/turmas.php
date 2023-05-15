@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                         <th class="text-center" data-orderable="false">Atualizar</th>
                         <th class="text-center" data-orderable="false">Excluir</th>
                         <th class="text-center" data-orderable="false">Ver alunos</th>
+                        <th class="text-center" data-orderable="false">Ver disciplinas</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             </td>
                             <td class="text-center">
                                 <a title="Ver alunos" href="ver_alunos_turma.php?acao=ver_alunos&id_turma=<?=$turma['id']; ?>&nome_turma=<?=$turma['nome'];?>" class="btn btn-sm btn-secondary"><i class="fas fa-edit">&nbsp;</i>Ver alunos</a>
+                            </td>
+                            <td class="text-center">
+                                <a title="Ver disciplinas" href="ver_disciplinas_turma.php?acao=ver_disciplinas&id_turma=<?=$turma['id']; ?>&nome_turma=<?=$turma['nome'];?>" class="btn btn-sm btn-secondary"><i class="fas fa-edit">&nbsp;</i>Ver disciplinas</a>
                             </td>
                         </tr>
                         <div class="modal fade" id="excluir-<?=$turma['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
