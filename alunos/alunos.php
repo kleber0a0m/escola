@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     <tr>
                         <th class="text-center">Matrícula</th>
                         <th class="text-center">Nome</th>
+                        <th class="text-center" >Ver boletim</th>
+                        <th class="text-center" >Adicionar nota</th>
                         <th class="text-center" data-orderable="false">Atualizar</th>
                         <th class="text-center" data-orderable="false">Excluir</th>
                     </tr>
@@ -44,11 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 <tbody>
                     <?php 
                     $alunos = listarAlunos();
-                    foreach($alunos as $aluno): 
+                    foreach($alunos as $aluno):
                         ?>
                         <tr>
                             <td class="text-center"><?= $aluno['id'] ?></td>
                             <td class="text-center"><?= $aluno['nome'] ?></td>
+                            <td class="text-center">
+                                <a title="Ver Boletim" href="boletim_aluno.php?id=<?=$aluno['id']; ?>&nome=<?=$aluno['nome']; ?>"  class="btn btn-sm btn-secondary"><i class="fas fa-trash-alt">&nbsp;</i>Ver Boletim</a>
+                            </td>
+                            <td class="text-center">
+                                <a title="Adicionar nota" href="adicionar_nota.php?id=<?=$aluno['id']; ?>&nome=<?=$aluno['nome']; ?>"  class="btn btn-sm btn-secondary"><i class="fas fa-trash-alt">&nbsp;</i>Adicionar nota</a>
+                            </td>
                             <td class="text-center">
                                 <a title="Atualizar" href="editar_aluno.php?id=<?=$aluno['id']; ?>" class="btn btn-sm btn-success"><i class="fas fa-edit">&nbsp;</i>Atualizar</a>
                             </td>

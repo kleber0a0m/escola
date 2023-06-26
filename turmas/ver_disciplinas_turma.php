@@ -98,7 +98,7 @@ include '../menu.php';
                         <input type="hidden" name="nome_turma" value="<?= $nomeTurma ?>">
                         <div class="modal-body">
                             <h6>Selecione um disciplina existente ou <a href="/escola/disciplinas/cadastrar_disciplina.php">adicione um novo</a></h6>
-                            <select class="form-select" name="id_disciplina">
+                            <select class="form-select" name="id_disciplina" required>
                                 <option value="-1" disabled selected>Selecione um disciplina</option>
                                 <?php
                                 $lista = listarDisciplinaQueNaoEstaoNaTurma($idTurma);

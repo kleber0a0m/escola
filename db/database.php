@@ -241,4 +241,38 @@ function verificarDisciplinaRelacionada($id_disciplina) {
     return $result > 0;
 }
 
+function verBoletim($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("SELECT t_notas.id AS id_nota, alunos.nome AS aluno, disciplinas.nome AS disciplina, t_notas.valor FROM t_notas INNER JOIN alunos ON t_notas.fk_aluno = alunos.id INNER JOIN disciplinas ON t_notas.fk_disciplina = disciplinas.id WHERE t_notas.fk_aluno = :id");
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    $lista = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $lista;
+}
+
+function listarDisciplinasDisponiveis($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("SELECT td.id_disciplina, d.nome AS disciplina FROM turmas_disciplinas td INNER JOIN alunos a ON td.id_turma = a.id_turma INNER JOIN disciplinas as d ON td.id_disciplina = d.id WHERE a.id = :id");
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    $lista = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $lista;
+}
+
+function adicionarNotaAluno($id_aluno,$id_disciplina,$valor){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("INSERT INTO t_notas (fk_aluno, fk_disciplina, valor) VALUES ( $id_aluno, $id_disciplina, $valor);");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
+function deletarNota($id){
+    $conexao = conecta_bd();
+    $query = $conexao->prepare("DELETE FROM t_notas WHERE id = $id;");
+    $query->execute();
+    $retorno = $query->fetch(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
 ?>
